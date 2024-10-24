@@ -1,5 +1,6 @@
 # Import python packages
 import streamlit as st
+import requests
 from snowflake.snowpark.functions import col
 
 # Write directly to the app
@@ -32,7 +33,10 @@ if ingredients_list:
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
             values ('""" + ingredients_string + """','
             """ + name_on_order + """ ')"""
+
     
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+    st.text(fruityvice_response)
     time_to_insert = st.button('Submit')
 
     if time_to_insert:
